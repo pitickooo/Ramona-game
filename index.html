@@ -1,1 +1,399 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Pro Ramonu ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    touch-action:none;
+}
+
+body{
+    overflow:hidden;
+    background:#050510;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+canvas{
+    display:block;
+}
+
+#startMenu{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(#071126,#020205);
+    color:white;
+    z-index:10;
+}
+
+#title{
+    font-size:38px;
+    margin-bottom:20px;
+    color:#ff6db2;
+    text-align:center;
+}
+
+#subtitle{
+    width:85%;
+    text-align:center;
+    line-height:1.5;
+    color:#ddd;
+    margin-bottom:35px;
+}
+
+button{
+    padding:18px 40px;
+    border:none;
+    border-radius:15px;
+    background:#ff4fa2;
+    color:white;
+    font-size:22px;
+}
+
+#ui{
+    position:absolute;
+    top:15px;
+    left:15px;
+    color:white;
+    font-size:22px;
+    display:none;
+}
+
+#dialog{
+    position:absolute;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%);
+    width:90%;
+    background:rgba(0,0,0,.75);
+    color:white;
+    padding:18px;
+    border-radius:15px;
+    display:none;
+    font-size:18px;
+}
+
+.controls{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    display:none;
+    justify-content:space-between;
+    padding:0 20px;
+}
+
+.pad{
+    display:grid;
+    grid-template-columns:70px 70px;
+    gap:10px;
+}
+
+.ctrl{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,.18);
+    color:white;
+    font-size:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="startMenu">
+
+<div id="title">
+Pro Ramonu ❤️
+</div>
+
+<div id="subtitle">
+Vydej se na cestu a najdi Patrika.<br>
+Po ceste te cekaji vzpominky, zviratka a male ukoly.
+</div>
+
+<button id="playBtn">
+Zacit ❤️
+</button>
+
+</div>
+
+<div id="ui">
+❤️ <span id="hearts">0</span>
+</div>
+
+<div id="dialog"></div>
+
+<div class="controls" id="controls">
+
+<div class="pad">
+<button class="ctrl" id="left">◀</button>
+<button class="ctrl" id="right">▶</button>
+</div>
+
+<div>
+<button class="ctrl" id="action">★</button>
+</div>
+
+</div>
+
+<canvas id="game"></canvas>
+
+<script>
+
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+
+resize();
+window.addEventListener("resize",resize);
+
+let gameStarted=false;
+
+const player={
+x:120,
+y:300,
+w:28,
+h:40,
+speed:4,
+left:false,
+right:false
+};
+let hearts = 0;
+
+const stars = [];
+
+for (let i = 0; i < 120; i++) {
+    stars.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 2 + 1
+    });
+}
+
+function drawSky() {
+
+    ctx.fillStyle = "#081020";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = "white";
+
+    stars.forEach(s=>{
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+    });
+
+}
+
+function drawGround(){
+
+    ctx.fillStyle="#2d5d2d";
+    ctx.fillRect(0,canvas.height-120,canvas.width,120);
+
+}
+
+function drawBuilding(){
+
+    ctx.fillStyle="#8d8d8d";
+
+    ctx.fillRect(
+        canvas.width/2-90,
+        canvas.height-420,
+        180,
+        300
+    );
+
+    ctx.fillStyle="#222";
+
+    for(let y=0;y<7;y++){
+
+        for(let x=0;x<4;x++){
+
+            ctx.fillRect(
+                canvas.width/2-70+x*40,
+                canvas.height-395+y*35,
+                22,
+                22
+            );
+
+        }
+
+    }
+
+}
+
+function drawPlayer(){
+
+    // nohy
+    ctx.fillStyle="black";
+
+    ctx.fillRect(player.x+6,player.y+25,6,15);
+    ctx.fillRect(player.x+16,player.y+25,6,15);
+
+    // tricko
+    ctx.fillStyle="white";
+    ctx.fillRect(player.x+4,player.y+10,20,18);
+
+    // hlava
+    ctx.fillStyle="#f3d8c0";
+    ctx.beginPath();
+    ctx.arc(player.x+14,player.y+8,8,0,Math.PI*2);
+    ctx.fill();
+
+    // vlasy
+    ctx.fillStyle="#3d2413";
+    ctx.fillRect(player.x+6,player.y,16,6);
+
+}
+
+function update(){
+
+    if(player.left){
+        player.x-=player.speed;
+    }
+
+    if(player.right){
+        player.x+=player.speed;
+    }
+
+    if(player.x<0) player.x=0;
+
+    if(player.x>canvas.width-player.w){
+        player.x=canvas.width-player.w;
+    }
+
+}
+
+function render(){
+
+    drawSky();
+
+    drawGround();
+
+    drawBuilding();
+
+    drawPlayer();
+
+}
+
+function gameLoop(){
+
+    if(!gameStarted){
+        requestAnimationFrame(gameLoop);
+        return;
+    }
+
+    update();
+
+    render();
+
+    requestAnimationFrame(gameLoop);
+
+}
+
+gameLoop();
+// ---------- SPUSTENI HRY ----------
+
+const playBtn=document.getElementById("playBtn");
+const menu=document.getElementById("startMenu");
+const ui=document.getElementById("ui");
+const controls=document.getElementById("controls");
+const dialog=document.getElementById("dialog");
+
+playBtn.onclick=()=>{
+
+    menu.style.display="none";
+    ui.style.display="block";
+    controls.style.display="flex";
+
+    gameStarted=true;
+
+    showDialog(
+        "Ramona... Dnesni vecer je jiny. Najdi Patrika. Tvoje dobrodruzstvi prave zacina. ❤️",
+        5000
+    );
+
+};
+
+// ---------- DIALOG ----------
+
+function showDialog(text,time=4000){
+
+    dialog.innerHTML=text;
+    dialog.style.display="block";
+
+    setTimeout(()=>{
+
+        dialog.style.display="none";
+
+    },time);
+
+}
+
+// ---------- MOBILNI OVLADANI ----------
+
+const left=document.getElementById("left");
+const right=document.getElementById("right");
+const action=document.getElementById("action");
+
+left.addEventListener("touchstart",()=>player.left=true);
+left.addEventListener("touchend",()=>player.left=false);
+
+right.addEventListener("touchstart",()=>player.right=true);
+right.addEventListener("touchend",()=>player.right=false);
+
+left.addEventListener("mousedown",()=>player.left=true);
+left.addEventListener("mouseup",()=>player.left=false);
+left.addEventListener("mouseleave",()=>player.left=false);
+
+right.addEventListener("mousedown",()=>player.right=true);
+right.addEventListener("mouseup",()=>player.right=false);
+right.addEventListener("mouseleave",()=>player.right=false);
+
+action.onclick=()=>{
+
+    showDialog(
+        "Zatim neni s cim komunikovat. Pokracuj smerem doprava. ❤️",
+        2500
+    );
+
+};
+
+// ---------- KLAVESNICE ----------
+
+window.addEventListener("keydown",(e)=>{
+
+    if(e.key==="ArrowLeft") player.left=true;
+
+    if(e.key==="ArrowRight") player.right=true;
+
+});
+
+window.addEventListener("keyup",(e)=>{
+
+    if(e.key==="ArrowLeft") player.left=false;
+
+    if(e.key==="ArrowRight") player.right=false;
+
+});
+</script>
+</body>
+</html>
