@@ -164,12 +164,13 @@ canvas.height=window.innerHeight;
 
 resize();
 window.addEventListener("resize",resize);
-
+canvas.height=window.innerHeight;
+player.y = canvas.height - 160;
 let gameStarted=false;
 
 const player={
-x:120,
-y:300,
+x:60,
+y:0,
 w:28,
 h:40,
 speed:4,
