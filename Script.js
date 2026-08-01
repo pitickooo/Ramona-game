@@ -87,23 +87,54 @@ document.addEventListener("keydown",(e)=>{
         switch(option){
 
             case "START":
-                pageText.textContent = "Vítej v LOVE BOY ❤️";
+
+                pageText.innerHTML = `
+Vítej v LOVE BOY ❤️
+
+<br><br>
+
+Tahle retro konzole byla vytvořena jen pro jednu jedinou osobu.
+
+<br><br>
+
+Pro moji nejúžasnější holku Ramonu.
+
+<br><br>
+
+Doufám že se ti bude líbit ❤️
+`;
+
             break;
 
             case "OUR STORY":
+
                 pageText.textContent = "Sem později napíšeme celý náš příběh.";
+
             break;
 
             case "MEMORIES":
-                pageText.textContent = "Tady budou naše nejhezčí vzpomínky.";
+
+                pageText.textContent = "Tady budou naše nejhezčí společné vzpomínky.";
+
             break;
 
             case "LOVE LETTER":
-                pageText.textContent = "Sem vložíme tvůj dopis pro Ramonu.";
+
+                pageText.textContent = "Sem vložíme dlouhý dopis pro Ramonu.";
+
             break;
 
             case "CREDITS":
-                pageText.textContent = "Made with ❤️ by Patrik.";
+
+                pageText.innerHTML = `
+Made with ❤️ by Patrik
+
+<br><br>
+
+Pro moji Ramonu.
+
+`;
+
             break;
 
         }
@@ -118,7 +149,9 @@ const boot = setInterval(()=>{
 
     progress += 5;
 
-    loadingFill.style.width = progress + "%";
+    if(loadingFill){
+        loadingFill.style.width = progress + "%";
+    }
 
     if(progress >= 100){
 
