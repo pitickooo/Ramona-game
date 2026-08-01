@@ -108,19 +108,62 @@ Doufám že se ti bude líbit ❤️
 
             case "OUR STORY":
 
-                pageText.textContent = "Sem později napíšeme celý náš příběh.";
+                pageText.innerHTML = `
+Všechno začalo po škole.
+
+<br><br>
+
+Sebral jsem odvahu a vzal si tvoje číslo. Potom jsem ti napsal první zprávu. Tehdy jsem ještě netušil, že právě tím začne ten nejkrásnější příběh mého života.
+
+<br><br>
+
+Od 7. 8. 2025 jsme spolu a od té doby jsi tou nejdůležitější součástí mého života.
+
+<br><br>
+
+Nevím, kdy přesně jsme si poprvé řekli „Miluju tě“, ale vím, že už od prvního dne jsem cítil, že jsi pro mě výjimečná.
+
+<br><br>
+
+Tohle je teprve začátek našeho společného příběhu. ❤️
+`;
 
             break;
 
             case "MEMORIES":
 
-                pageText.textContent = "Tady budou naše nejhezčí společné vzpomínky.";
+                pageText.innerHTML = `
+❤️ 7. 8. 2025
+Náš první den spolu.
+
+<br><br>
+
+📱 První zpráva.
+
+<br>
+
+Když jsem ti napsal po škole.
+
+<br><br>
+
+🤍 Každé obejmutí.
+
+<br><br>
+
+😂 Každý společný smích.
+
+<br><br>
+
+✨ A hlavně každá chvíle, kterou můžu strávit s tebou.
+`;
 
             break;
 
             case "LOVE LETTER":
 
-                pageText.textContent = "Sem vložíme dlouhý dopis pro Ramonu.";
+                pageText.innerHTML = `
+Sem přijde ten nejkrásnější dopis pro Ramonu. ❤️
+`;
 
             break;
 
