@@ -13,6 +13,99 @@ menuScreen.style.display = "none";
 pageScreen.style.display = "none";
 
 let selected = 0;
+let letterPage = 0;
+
+const letterPages = [
+
+`<h3>❤️ LOVE LETTER ❤️</h3>
+
+<b>Page 1 / 5</b>
+
+<br><br>
+
+Ahoj moje nejmilovanejsi lasko ❤️
+
+<br><br>
+
+Jestli tohle prave ctes tak jsem moc rad ze se mi povedlo vytvorit tuhle malou retro konzoli jen pro tebe.
+
+<br><br>
+
+Nechtel jsem ti dat obycejny darek.
+
+<br><br>
+
+<b>Enter ➜</b>`,
+
+`<h3>❤️ LOVE LETTER ❤️</h3>
+
+<b>Page 2 / 5</b>
+
+<br><br>
+
+Chtel jsem vytvorit neco co ti vzdy pripomene jak moc te miluju.
+
+<br><br>
+
+Kazdy radek jsem delal s laskou.
+
+<br><br>
+
+<b>Enter ➜</b>`,
+
+`<h3>❤️ LOVE LETTER ❤️</h3>
+
+<b>Page 3 / 5</b>
+
+<br><br>
+
+Dekuju ti za kazdy usmev.
+
+<br><br>
+
+Dekuju ti za kazde obejmuti.
+
+<br><br>
+
+Dekuju ze jsi moje.
+
+<br><br>
+
+<b>Enter ➜</b>`,
+
+`<h3>❤️ LOVE LETTER ❤️</h3>
+
+<b>Page 4 / 5</b>
+
+<br><br>
+
+Kazdy den s tebou je pro me ten nejhezci.
+
+<br><br>
+
+Doufam ze spolu zazijeme jeste spoustu dalsich let.
+
+<br><br>
+
+<b>Enter ➜</b>`,
+
+`<h3>❤️ LOVE LETTER ❤️</h3>
+
+<b>Page 5 / 5</b>
+
+<br><br>
+
+Miluju te nejvic na svete.
+
+<br><br>
+
+Stastne prvni vyroci lasko ❤️
+
+<br><br>
+
+Tvuj Pataaa ❤️`
+
+];
 
 function updateMenu(){
 
@@ -34,14 +127,47 @@ function updateMenu(){
 
 updateMenu();
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown", (e) => {
 
-    if(pageScreen.style.display==="block"){
+    // Když je otevřená stránka
 
-        if(e.key==="Backspace"){
+    if (pageScreen.style.display === "block") {
 
-            pageScreen.style.display="none";
-            menuScreen.style.display="block";
+        // LOVE LETTER - další stránka po Enter
+
+        if (pageTitle.textContent === "LOVE LETTER" && e.key === "Enter") {
+
+            letterPage++;
+
+            if (letterPage < letterPages.length) {
+
+                pageText.innerHTML = letterPages[letterPage];
+
+            } else {
+
+                pageScreen.style.display = "none";
+
+                menuScreen.style.display = "block";
+
+                letterPage = 0;
+
+            }
+
+            return;
+
+        }
+
+        // Zpět do menu
+
+        if (e.key === "Backspace") {
+
+            pageScreen.style.display = "none";
+
+            menuScreen.style.display = "block";
+
+            letterPage = 0;
+
+            return;
 
         }
 
@@ -49,46 +175,60 @@ document.addEventListener("keydown",(e)=>{
 
     }
 
-    if(menuScreen.style.display==="none") return;
+    // Pokud není menu vidět, nic nedělej
 
-    if(e.key==="ArrowDown"){
+    if (menuScreen.style.display === "none") return;
+
+    // Pohyb dolů
+
+    if (e.key === "ArrowDown") {
 
         selected++;
 
-        if(selected>=menuItems.length){
-            selected=0;
+        if (selected >= menuItems.length) {
+
+            selected = 0;
+
         }
 
         updateMenu();
 
     }
 
-    if(e.key==="ArrowUp"){
+    // Pohyb nahoru
+
+    if (e.key === "ArrowUp") {
 
         selected--;
 
-        if(selected<0){
-            selected=menuItems.length-1;
+        if (selected < 0) {
+
+            selected = menuItems.length - 1;
+
         }
 
         updateMenu();
 
     }
 
-    if(e.key==="Enter"){
+    // Otevření položky
 
-        const option = menuItems[selected].textContent.replace("► ","");
+    if (e.key === "Enter") {
 
-        menuScreen.style.display="none";
-        pageScreen.style.display="block";
+        const option = menuItems[selected].textContent.replace("► ", "");
+
+        menuScreen.style.display = "none";
+
+        pageScreen.style.display = "block";
 
         pageTitle.textContent = option;
 
-        switch(option){
+        switch (option) {
 
             case "START":
 
                 pageText.innerHTML = `
+
 Vítej v LOVE BOY ❤️
 
 <br><br>
@@ -102,13 +242,15 @@ Pro moji nejúžasnější holku Ramonu.
 <br><br>
 
 Doufám že se ti bude líbit ❤️
+
 `;
 
-            break;
+                break;
 
             case "OUR STORY":
 
                 pageText.innerHTML = `
+
 Všechno začalo po škole.
 
 <br><br>
@@ -126,23 +268,20 @@ Nevím, kdy přesně jsme si poprvé řekli „Miluju tě“, ale vím, že už 
 <br><br>
 
 Tohle je teprve začátek našeho společného příběhu. ❤️
+
 `;
 
-            break;
+                break;
 
             case "MEMORIES":
 
                 pageText.innerHTML = `
-❤️ 7. 8. 2025
-Náš první den spolu.
+
+❤️ 7. 8. 2025 - Náš první den spolu.
 
 <br><br>
 
-📱 První zpráva.
-
-<br>
-
-Když jsem ti napsal po škole.
+📱 První zpráva po škole.
 
 <br><br>
 
@@ -155,49 +294,23 @@ Když jsem ti napsal po škole.
 <br><br>
 
 ✨ A hlavně každá chvíle, kterou můžu strávit s tebou.
+
 `;
 
-            break;
+                break;
 
             case "LOVE LETTER":
 
-    pageText.innerHTML = `
-<h3>❤️ LOVE LETTER ❤️</h3>
+                letterPage = 0;
 
-<p><b>Page 1 / 5</b></p>
+                pageText.innerHTML = letterPages[0];
 
-<br>
-
-Ahoj moje nejmilovanejsi laskooo ❤️
-
-<br><br>
-
-Jestli tohle prave ctes tak jsem moc rad ze se mi povedlo dokoncit tuhle malou retro konzoli jen pro tebe.
-
-<br><br>
-
-Nechtel jsem ti dat obycejny darek. Chtel jsem vytvorit neco co ti vzdy pripomene jak moc pro me znamenas a jak moc te miluju.
-
-<br><br>
-
-Kazdy radek teto konzole jsem delal s laskou a myslel jsem u toho jen na tebe. Doufam ze az ji projdes celou tak budes mit usmev na tvari.
-
-<br><br>
-
-Tohle je jen zacatek jednoho dlouheho dopisu.
-
-<br><br>
-
-❤️ Pokracovani priste...
-`;
-
-break;
-
-            break;
+                break;
 
             case "CREDITS":
 
                 pageText.innerHTML = `
+
 Made with ❤️ by Patrik
 
 <br><br>
@@ -206,7 +319,7 @@ Pro moji Ramonu.
 
 `;
 
-            break;
+                break;
 
         }
 
@@ -234,3 +347,4 @@ const boot = setInterval(()=>{
     }
 
 },120);
+
