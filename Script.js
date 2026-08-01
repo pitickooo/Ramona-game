@@ -161,9 +161,37 @@ Když jsem ti napsal po škole.
 
             case "LOVE LETTER":
 
-                pageText.innerHTML = `
-Sem přijde ten nejkrásnější dopis pro Ramonu. ❤️
+    pageText.innerHTML = `
+<h3>❤️ LOVE LETTER ❤️</h3>
+
+<p><b>Page 1 / 5</b></p>
+
+<br>
+
+Ahoj moje nejmilovanejsi laskooo ❤️
+
+<br><br>
+
+Jestli tohle prave ctes tak jsem moc rad ze se mi povedlo dokoncit tuhle malou retro konzoli jen pro tebe.
+
+<br><br>
+
+Nechtel jsem ti dat obycejny darek. Chtel jsem vytvorit neco co ti vzdy pripomene jak moc pro me znamenas a jak moc te miluju.
+
+<br><br>
+
+Kazdy radek teto konzole jsem delal s laskou a myslel jsem u toho jen na tebe. Doufam ze az ji projdes celou tak budes mit usmev na tvari.
+
+<br><br>
+
+Tohle je jen zacatek jednoho dlouheho dopisu.
+
+<br><br>
+
+❤️ Pokracovani priste...
 `;
+
+break;
 
             break;
 
