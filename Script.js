@@ -5,6 +5,10 @@ const pageScreen = document.getElementById("pageScreen");
 
 const pageTitle = document.getElementById("pageTitle");
 const pageText = document.getElementById("pageText");
+const bootScreen = document.getElementById("bootScreen");
+
+menuScreen.style.display = "none";
+pageScreen.style.display = "none";
 
 let selected = 0;
 
@@ -129,3 +133,9 @@ document.addEventListener("keydown",(e)=>{
     }
 
 });
+setTimeout(() => {
+
+    bootScreen.style.display = "none";
+    menuScreen.style.display = "block";
+
+}, 2500);
