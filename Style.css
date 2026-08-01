@@ -99,3 +99,30 @@ h1{
     line-height:1.7;
 
 }
+#bootScreen{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.bootLogo{
+    font-size:42px;
+    font-weight:bold;
+    color:#183518;
+    text-align:center;
+}
+
+.bootText{
+    margin-top:10px;
+    color:#305030;
+    font-size:20px;
+}
+
+#loading{
+    margin-top:40px;
+    font-size:24px;
+    animation:blink .8s infinite;
+}
