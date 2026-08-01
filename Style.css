@@ -82,3 +82,20 @@ h1{
     }
 
 }
+
+#pageTitle{
+
+    text-align:center;
+    color:#183518;
+    margin-bottom:20px;
+    font-size:30px;
+
+}
+
+#pageText{
+
+    color:#183518;
+    font-size:20px;
+    line-height:1.7;
+
+}
