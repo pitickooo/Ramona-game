@@ -1,20 +1,24 @@
 const menuItems = document.querySelectorAll("#menu li");
 
+const menuScreen = document.getElementById("menuScreen");
+const pageScreen = document.getElementById("pageScreen");
+
+const pageTitle = document.getElementById("pageTitle");
+const pageText = document.getElementById("pageText");
+
 let selected = 0;
 
-function updateMenu() {
+function updateMenu(){
 
-    menuItems.forEach((item, index) => {
+    menuItems.forEach((item,index)=>{
 
-        if(index === selected){
+        item.classList.remove("selected");
+        item.textContent = item.textContent.replace("► ","");
+
+        if(index===selected){
 
             item.classList.add("selected");
-            item.innerHTML = "► " + item.textContent.replace("► ","");
-
-        }else{
-
-            item.classList.remove("selected");
-            item.innerHTML = item.textContent.replace("► ","");
+            item.textContent="► "+item.textContent;
 
         }
 
@@ -24,68 +28,101 @@ function updateMenu() {
 
 updateMenu();
 
-document.addEventListener("keydown", function(e){
+document.addEventListener("keydown",(e)=>{
 
-    if(e.key === "ArrowDown"){
+    if(pageScreen.style.display==="block"){
+
+        if(e.key==="Backspace"){
+
+            pageScreen.style.display="none";
+            menuScreen.style.display="block";
+
+        }
+
+        return;
+
+    }
+
+    if(e.key==="ArrowDown"){
 
         selected++;
 
-        if(selected >= menuItems.length){
-            selected = 0;
+        if(selected>=menuItems.length){
+
+            selected=0;
+
         }
 
         updateMenu();
 
     }
 
-    if(e.key === "ArrowUp"){
+    if(e.key==="ArrowUp"){
 
         selected--;
 
-        if(selected < 0){
-            selected = menuItems.length - 1;
+        if(selected<0){
+
+            selected=menuItems.length-1;
+
         }
 
         updateMenu();
 
     }
 
-    if(e.key === "Enter"){
+    if(e.key==="Enter"){
 
-        const option = menuItems[selected].textContent.trim();
+        const option=menuItems[selected].textContent.replace("► ","");
+
+        menuScreen.style.display="none";
+        pageScreen.style.display="block";
+
+        pageTitle.textContent=option;
 
         switch(option){
 
-            case "► START":
             case "START":
-                alert("START");
-                break;
+
+                pageText.textContent="Vítej v LOVE BOY ❤️";
+
+            break;
 
             case "OUR STORY":
-                alert("OUR STORY");
-                break;
+
+                pageText.textContent="Sem později napíšeme celý náš příběh.";
+
+            break;
 
             case "MEMORIES":
-                alert("MEMORIES");
-                break;
+
+                pageText.textContent="Tady budou naše nejhezčí vzpomínky.";
+
+            break;
 
             case "LOVE LETTER":
-                alert("LOVE LETTER");
-                break;
 
-           
+                pageText.textContent="Sem vložíme tvůj dopis pro Ramonu.";
+
+            break;
 
             case "MUSIC":
-                alert("MUSIC");
-                break;
+
+                pageText.textContent="Tady bude přehrávač vaší písničky.";
+
+            break;
 
             case "SETTINGS":
-                alert("SETTINGS");
-                break;
+
+                pageText.textContent="Nastavení konzole.";
+
+            break;
 
             case "CREDITS":
-                alert("CREDITS");
-                break;
+
+                pageText.textContent="Made with ❤️ by Patrik.";
+
+            break;
 
         }
 
