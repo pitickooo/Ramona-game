@@ -15,6 +15,10 @@ const btnDown = document.getElementById("btnDown");
 const btnOk = document.getElementById("btnA");
 const btnBack = document.getElementById("btnB");
 
+console.log(btnUp, btnDown, btnOk, btnBack);
+
+alert(btnUp);
+
 menuScreen.style.display = "none";
 pageScreen.style.display = "none";
 
