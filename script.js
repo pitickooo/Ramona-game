@@ -9,6 +9,12 @@ const pageText = document.getElementById("pageText");
 const bootScreen = document.getElementById("bootScreen");
 const loadingFill = document.getElementById("loadingFill");
 
+// Mobilní tlačítka
+const btnUp = document.getElementById("btnUp");
+const btnDown = document.getElementById("btnDown");
+const btnA = document.getElementById("btnA");
+const btnB = document.getElementById("btnB");
+
 menuScreen.style.display = "none";
 pageScreen.style.display = "none";
 
@@ -126,15 +132,12 @@ function updateMenu(){
 }
 
 updateMenu();
-
 document.addEventListener("keydown", (e) => {
 
     // Když je otevřená stránka
-
     if (pageScreen.style.display === "block") {
 
         // LOVE LETTER - další stránka po Enter
-
         if (pageTitle.textContent === "LOVE LETTER" && e.key === "Enter") {
 
             letterPage++;
@@ -146,9 +149,7 @@ document.addEventListener("keydown", (e) => {
             } else {
 
                 pageScreen.style.display = "none";
-
                 menuScreen.style.display = "block";
-
                 letterPage = 0;
 
             }
@@ -158,13 +159,10 @@ document.addEventListener("keydown", (e) => {
         }
 
         // Zpět do menu
-
         if (e.key === "Backspace") {
 
             pageScreen.style.display = "none";
-
             menuScreen.style.display = "block";
-
             letterPage = 0;
 
             return;
@@ -175,20 +173,16 @@ document.addEventListener("keydown", (e) => {
 
     }
 
-    // Pokud není menu vidět, nic nedělej
-
+    // Pokud není menu vidět
     if (menuScreen.style.display === "none") return;
 
     // Pohyb dolů
-
     if (e.key === "ArrowDown") {
 
         selected++;
 
         if (selected >= menuItems.length) {
-
             selected = 0;
-
         }
 
         updateMenu();
@@ -196,15 +190,12 @@ document.addEventListener("keydown", (e) => {
     }
 
     // Pohyb nahoru
-
     if (e.key === "ArrowUp") {
 
         selected--;
 
         if (selected < 0) {
-
             selected = menuItems.length - 1;
-
         }
 
         updateMenu();
@@ -212,13 +203,11 @@ document.addEventListener("keydown", (e) => {
     }
 
     // Otevření položky
-
     if (e.key === "Enter") {
 
         const option = menuItems[selected].textContent.replace("► ", "");
 
         menuScreen.style.display = "none";
-
         pageScreen.style.display = "block";
 
         pageTitle.textContent = option;
@@ -228,7 +217,6 @@ document.addEventListener("keydown", (e) => {
             case "START":
 
                 pageText.innerHTML = `
-
 Vítej v LOVE BOY ❤️
 
 <br><br>
@@ -242,20 +230,17 @@ Pro moji nejúžasnější holku Ramonu.
 <br><br>
 
 Doufám že se ti bude líbit ❤️
-
 `;
-
                 break;
 
             case "OUR STORY":
 
                 pageText.innerHTML = `
-
 Všechno začalo po škole.
 
 <br><br>
 
-Sebral jsem odvahu a vzal si tvoje číslo. Potom jsem ti napsal první zprávu. Tehdy jsem ještě netušil, že právě tím začne ten nejkrásnější příběh mého života.
+Sebral jsem odvahu a vzal si tvoje číslo. Potom jsem ti napsal první zprávu. Tehdy jsem ještě netušil že právě tím začne ten nejkrásnější příběh mého života.
 
 <br><br>
 
@@ -263,20 +248,17 @@ Od 7. 8. 2025 jsme spolu a od té doby jsi tou nejdůležitější součástí m
 
 <br><br>
 
-Nevím, kdy přesně jsme si poprvé řekli „Miluju tě“, ale vím, že už od prvního dne jsem cítil, že jsi pro mě výjimečná.
+Nevím kdy přesně jsme si poprvé řekli Miluju tě ale vím že už od prvního dne jsem cítil že jsi pro mě výjimečná.
 
 <br><br>
 
 Tohle je teprve začátek našeho společného příběhu. ❤️
-
 `;
-
                 break;
 
             case "MEMORIES":
 
                 pageText.innerHTML = `
-
 ❤️ 7. 8. 2025 - Náš první den spolu.
 
 <br><br>
@@ -293,16 +275,13 @@ Tohle je teprve začátek našeho společného příběhu. ❤️
 
 <br><br>
 
-✨ A hlavně každá chvíle, kterou můžu strávit s tebou.
-
+✨ A hlavně každá chvíle kterou můžu strávit s tebou.
 `;
-
                 break;
 
             case "LOVE LETTER":
 
                 letterPage = 0;
-
                 pageText.innerHTML = letterPages[0];
 
                 break;
@@ -310,15 +289,12 @@ Tohle je teprve začátek našeho společného příběhu. ❤️
             case "CREDITS":
 
                 pageText.innerHTML = `
-
 Made with ❤️ by Patrik
 
 <br><br>
 
 Pro moji Ramonu.
-
 `;
-
                 break;
 
         }
@@ -326,18 +302,21 @@ Pro moji Ramonu.
     }
 
 });
+// ===============================
+// BOOT LOADING
+// ===============================
 
 let progress = 0;
 
-const boot = setInterval(()=>{
+const boot = setInterval(() => {
 
     progress += 5;
 
-    if(loadingFill){
+    if (loadingFill) {
         loadingFill.style.width = progress + "%";
     }
 
-    if(progress >= 100){
+    if (progress >= 100) {
 
         clearInterval(boot);
 
@@ -346,5 +325,50 @@ const boot = setInterval(()=>{
 
     }
 
-},120);
+}, 120);
 
+// ===============================
+// MOBILNI OVLADANI
+// ===============================
+
+function pressKey(key) {
+
+    document.dispatchEvent(
+        new KeyboardEvent("keydown", {
+            key: key
+        })
+    );
+
+}
+
+if (btnUp) {
+
+    btnUp.addEventListener("click", () => {
+        pressKey("ArrowUp");
+    });
+
+}
+
+if (btnDown) {
+
+    btnDown.addEventListener("click", () => {
+        pressKey("ArrowDown");
+    });
+
+}
+
+if (btnA) {
+
+    btnA.addEventListener("click", () => {
+        pressKey("Enter");
+    });
+
+}
+
+if (btnB) {
+
+    btnB.addEventListener("click", () => {
+        pressKey("Backspace");
+    });
+
+}
