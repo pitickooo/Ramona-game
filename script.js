@@ -10,10 +10,10 @@ const bootScreen = document.getElementById("bootScreen");
 const loadingFill = document.getElementById("loadingFill");
 
 // MOBILNI TLACITKA
-const btnUp = document.getElementById("up");
-const btnDown = document.getElementById("down");
-const btnOk = document.getElementById("ok");
-const btnBack = document.getElementById("back");
+const btnUp = document.getElementById("btnUp");
+const btnDown = document.getElementById("btnDown");
+const btnOk = document.getElementById("btnA");
+const btnBack = document.getElementById("btnB");
 
 menuScreen.style.display = "none";
 pageScreen.style.display = "none";
@@ -152,7 +152,7 @@ Tahle retro konzole byla vytvořena jen pro jednu jedinou osobu.
 
 <br><br>
 
-Pro moji nejúžasnější holku Ramonu.
+Pro moji nejúžasnější holkuu
 
 <br><br>
 
